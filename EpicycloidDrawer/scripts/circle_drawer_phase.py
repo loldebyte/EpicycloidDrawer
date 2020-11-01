@@ -4,6 +4,8 @@ import math
 plt.style.use('seaborn-pastel')
 
 
+# TODO: rewrite with a phase argument
+# return points starting with point at phase
 def points_on_circumference(x, y, r, precision=100):
     return [((np.cos(2*np.pi / precision*i))*r + x,
              (np.sin(2*np.pi / precision*i))*r + y)
