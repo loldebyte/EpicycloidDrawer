@@ -7,7 +7,6 @@ Created on Sat Oct 10 16:15:03 2020
 """
 import numpy as np
 from matplotlib import pyplot as plt
-from matplotlib.animation import FuncAnimation
 plt.style.use('seaborn-pastel')
 
 
@@ -24,22 +23,6 @@ def current_point_on_circle(xy: tuple, t, r, speed=1,
             np.sin(2*np.pi/precision*(t*speed + center_y))*r)
 
 
-def init():
-    c = plt.Circle((0, 0), RAYON, color='blue', fill=False)
-    c2 = plt.Circle(points[0], RAYON/2, color='blue', fill=False)
-    ax.add_artist(c)
-    ax.add_artist(c2)
-    scatter.set_offsets(np.hstack(points[0]))
-    return scatter, c, c2
-
-
-def animate(i):
-    x = [x[0] for x in points]
-    y = [y[1] for y in points]
-    scatter.set_offsets(np.hstack((x[i % N_POINTS], y[i % N_POINTS])))
-    return scatter,
-
-
 N_POINTS = 100
 RAYON = .5
 ANGLE = 0
@@ -53,19 +36,6 @@ scatter = ax.scatter([], [], c='red', marker='+')
 
 points = points_on_circumference(0, 0, RAYON, N_POINTS)
 
-anim = FuncAnimation(fig, animate, init_func=init,
-                     frames=200, interval=20, blit=True)
-
-anim.save('two_circle_around_speed.gif', writer='imagemagick')
-"""
-c = plt.Circle((0, 0), RAYON, color='blue', fill=False)
-ax.add_artist(c)
-x = [x[0] for x in points]
-y = [y[1] for y in points]
-scatter.set_offsets(np.hstack((x[0], y[0])))
-fig.savefig('test_speed_1circle.png')
-"""
-"""
 c = plt.Circle((0, 0), RAYON, color='blue', fill=False)
 center_circle2 = current_point_on_circle((0, 0), 1, RAYON)
 c2 = plt.Circle(center_circle2, RAYON/2, color='blue',
@@ -76,8 +46,8 @@ c2_points = points_on_circumference(center_circle2[0],
                                     center_circle2[1],
                                     RAYON/2,
                                     N_POINTS)
-x = [x[0] for x in c2_points]
-y = [y[1] for y in c2_points]
-scatter.set_offsets(np.hstack((x[1*SPEED], y[1*SPEED])))
+pt_x = [x[0] for x in c2_points]
+pt_y = [y[1] for y in c2_points]
+scatter.set_offsets(np.hstack((pt_x[1*SPEED], pt_y[1*SPEED])))
 fig.savefig('test_speed_twocircles_t0.png')
-"""
+
