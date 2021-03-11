@@ -133,3 +133,4 @@ dmypy.json
 
 # ignore html reports
 *.html
+*.css
